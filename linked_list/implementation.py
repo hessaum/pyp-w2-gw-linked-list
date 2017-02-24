@@ -84,31 +84,24 @@ class LinkedList(AbstractLinkedList):
         return counter
 
     def pop(self, index=None):
-        if len(self) == 0:
-            raise IndexError
-        
         if index is None:
-            index = self.count() - 1
-        
+            index = len(self) - 1
+
+        if index not in range(len(self)):
+            raise IndexError
+
         if index == 0:
             elem = self.start.elem
             self.start = self.start.next
             return elem
-        
-        if index >= len(self):
-            raise IndexError
-        
-        i = 0
-        
-        last_node = None
+
+        prev_node = None
         current_node = self.start
-        
+        counter = 0
         while True:
-            if i == index:
-                last_node.next = current_node.next
+            if counter == index:
+                prev_node.next = current_node.next
                 return current_node.elem
-            
-            last_node = current_node
+            prev_node = current_node
             current_node = current_node.next
-            
-            i += 1
+            counter += 1
