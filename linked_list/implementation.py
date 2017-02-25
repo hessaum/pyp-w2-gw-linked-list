@@ -56,7 +56,7 @@ class LinkedList(AbstractLinkedList):
         if len(self) != len(other):
             return False
         
-        # at index index compare both values in each list
+        # at index compare both values in each list
         for index,(s,o) in enumerate(zip(self,other)):
             if s != o:
                 return False
@@ -65,7 +65,6 @@ class LinkedList(AbstractLinkedList):
     def __ne__(self,other):
         return not self == other
         
-
     def append(self, elem):
         node = Node(elem)
     
@@ -77,11 +76,7 @@ class LinkedList(AbstractLinkedList):
             self.end = node
 
     def count(self):
-        #counts each elem
-        counter = 0
-        for elem in self:
-            counter += 1
-        return counter
+        return len(self)
 
     def pop(self, index=None):
         if index is None:
@@ -97,11 +92,10 @@ class LinkedList(AbstractLinkedList):
 
         prev_node = None
         current_node = self.start
-        counter = 0
-        while True:
-            if counter == index:
+
+        for i, _ in enumerate(self): # use self obj as counter
+            if i == index:                     
                 prev_node.next = current_node.next
                 return current_node.elem
             prev_node = current_node
-            current_node = current_node.next
-            counter += 1
+            current_node = current_node.next                
